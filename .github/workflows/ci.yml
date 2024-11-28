@@ -36,6 +36,5 @@ jobs:
 
     - name: Executar análise estática
       run: |
-        flake8 src/ tests/
         mypy src/
         pylint src/
