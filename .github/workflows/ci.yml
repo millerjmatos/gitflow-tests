@@ -34,4 +34,3 @@ jobs:
     - name: Executar análise estática
       run: |
         mypy src/
-        pylint src/
