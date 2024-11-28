@@ -28,3 +28,8 @@ jobs:
         coverage run -m unittest discover tests
         coverage report -m
         coverage xml
+
+    - name: Upload cobertura ao Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true
