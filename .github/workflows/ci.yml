@@ -34,3 +34,4 @@ jobs:
     - name: Executar análise estática
       run: |
         mypy src/
+        flake8 src/ tests/
