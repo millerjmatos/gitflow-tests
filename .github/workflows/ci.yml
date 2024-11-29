@@ -28,8 +28,6 @@ jobs:
 
     - name: Upload cobertura ao Codecov
       uses: codecov/codecov-action@v2
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Executar análise estática
       run: |
