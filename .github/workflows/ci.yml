@@ -28,12 +28,6 @@ jobs:
         pytest code/
         pytest --cov=code --cov-report=xml
 
-    - name: Executar teste com cobertura
-      run: |
-        coverage run -m unittest discover tests
-        coverage report -m
-        coverage xml
-
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
