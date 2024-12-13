@@ -2,7 +2,7 @@ name: Python CI
 
 on:
   push:
-    branches: [ "feature/**", "develop" ] # Executa para branches de features e develop
+    branches: [ "feat/**", "develop" ] # Executa para branches de features e develop
   pull_request:
     branches: [ main ]
 
@@ -14,7 +14,7 @@ jobs:
         python-version: ["3.9", "3.10"]
     
     steps:
-    - name: Checkout do código
+    - name: Checkout
       uses: actions/checkout@v3
     
     - name: Set up Python
@@ -32,7 +32,31 @@ jobs:
         pytest code/
         pytest --cov=code --cov-report=xml
 
+    - name: Lint com flake8
+      run: |
+        flake8 code/
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    needs: test # Garante que os testes passem antes de tentar o build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login no Docker Hub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push to Docker Hub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gitflow-pipeline:latest # Usando o nome correto do repositório
