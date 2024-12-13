@@ -2,7 +2,7 @@ name: Python CI
 
 on:
   push:
-    branches: [ "feature/**", "develop" ] # Executa para branches de features e develop
+    branches: [ "feat/**", "develop" ] # Executa para branches de features e develop
   pull_request:
     branches: [ main ]
 
@@ -32,7 +32,24 @@ jobs:
         pytest code/
         pytest --cov=code --cov-report=xml
 
+    - name: Lint com flake8
+      run: |
+        flake8 code/
+
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push Docker image
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/exemplo-testes-pipeline:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/exemplo-testes-pipeline:latest
