@@ -59,4 +59,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gitflow-pipeline-test # testando push
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gitflow-pipeline-test # push
