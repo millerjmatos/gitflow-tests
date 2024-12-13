@@ -42,14 +42,21 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
 
   build:
-    needs: test
+    needs: test # Garante que os testes passem antes de tentar o build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
     steps:
       - uses: actions/checkout@v3
-      - name: Build and push Docker image
-        run: |
-          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/exemplo-testes-pipeline:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/exemplo-testes-pipeline:latest
+      - name: Login no Docker Hub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push to Docker Hub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gitflow-pipeline:latest # Usando o nome correto do repositório
