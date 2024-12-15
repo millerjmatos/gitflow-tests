@@ -59,4 +59,4 @@ jobs:
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: |
             millerjmatos/gitflow-pipeline-test:latest
-            millerjmatos/gitflow-pipeline-test:${{ github.ref_name }}
+            millerjmatos/gitflow-pipeline-test:${{ github.sha }}
