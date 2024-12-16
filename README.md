@@ -5,7 +5,7 @@ Este projeto demonstra um exemplo prático de um pipeline de Integração Contí
 O pipeline automatiza as seguintes etapas:
 
 1.  **Testes:** Executa os testes unitários a cada push em branches de feature, develop e main e em pull requests para o branch main, verificando se o código funciona como esperado. Também gera um relatório de cobertura de testes com `pytest-cov` e verifica a qualidade do código usando o linter `flake8`.
-2.  **Build e Push da Imagem Docker:** Quando um merge é realizado no branch `main`, ou um push é diretamente efetuado para este branch, o pipeline cria uma imagem Docker da aplicação e a envia para o Docker Hub.
+2.  **Build e Push da Imagem Docker:** Quando um merge é realizado no branch `main`, ou um push é diretamente efetuado para este branch (não recomendado), o pipeline cria uma imagem Docker da aplicação e a envia para o Docker Hub.
 
 ## Tecnologias Utilizadas:
 
@@ -15,7 +15,7 @@ O pipeline automatiza as seguintes etapas:
 *   **flake8:** Linter para análise estática de código.
 *   **Docker:** Plataforma de containerização.
 *   **GitHub Actions:** Plataforma de CI/CD.
-*   **Gitflow (Simplificado):** Estratégia de branching.
+*   **Gitflow:** Estratégia de branching.
 
 Competências:
 
