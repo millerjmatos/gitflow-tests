@@ -10,4 +10,4 @@ COPY code/calculadora.py /app/
 
 COPY code/test_calc.py /app/
 
-CMD ["pytest"] # pode ser modificado para executar a aplicação.
+CMD ["pytest"] # can be modified to run the application.
