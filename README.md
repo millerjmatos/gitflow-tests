@@ -30,3 +30,5 @@ The pipeline automates:
 
 - View the complete pipeline in the Actions tab
 - Docker image: [docker.com/repository/docker/millerjmatos/gitflow-pipeline-test](https://hub.docker.com/repository/docker/millerjmatos/gitflow-pipeline-test)
+___
+Created by [Muller Matos](https://linktr.ee/millerjmatos)
